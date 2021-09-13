@@ -3,34 +3,50 @@
  *  Copyright 2021 Dave Gershman
  */
 
-import java.util.Hashtable;
-
 public class App
 {
-    public static double GetBAC(double A, double W, double r, double H) {
-        return (A * 5.14 / W * r) - 0.015 * H;
+    public static double GetTaxRate(String state, String county) {
+        double taxRate = 0;
+
+        if (state.equals("wisconsin")) {
+            taxRate = 0.05;
+
+            if (county.equals("eau clair"))
+                taxRate += 0.005;
+
+            if (county.equals("dunn"))
+                taxRate += 0.004;
+        }
+
+        if (state.equals("illinois"))
+            taxRate = 0.08;
+
+        return taxRate;
     }
 
     public static void main( String[] args )
     {
-        int gender = Input.GetInt("Enter a 1 if you are male or a 2 if you are female: ");
-        double oz_alcohol = Input.GetDouble("How many ounces of alcohol did you have? ");
-        double weight = Input.GetDouble("What is your weight in pounds? ");
-        double hours = Input.GetDouble("How many hours has it been since your last drink? ");
+        double orderAmount = Input.GetDouble("What is the order amount? ");
+        String state = Input.GetString("What state do you live in? ").toLowerCase();
+        String county = Input.GetString("What county do you live in? ").toLowerCase();
 
-        double r = 0f;
-        if (gender == 1)
-            r = 0.73f;
-        else if (gender == 2)
-            r = 0.66f;
+        double total = orderAmount;
 
-        double BAC = GetBAC(oz_alcohol, weight, r, hours);
+        String output = "";
 
-        System.out.printf("Your BAC is %.6f\n", BAC);
+        double taxRate = GetTaxRate(state, county);
 
-        if (BAC >= 0.08)
-            System.out.print("It is not legal for you to drive.");
-        else
-            System.out.print("It is legal for you to drive.");
+        if (taxRate > 0) {
+            double tax = orderAmount * taxRate;
+            tax = Math.round(tax * 100) / 100d;
+            output += String.format("The tax is $%.2f.\n", tax);
+
+            total += tax;
+        }
+
+        total = Math.round(total * 100) / 100d;
+        output += String.format("The total is $%.2f.", total);
+
+        System.out.print(output);
     }
 }

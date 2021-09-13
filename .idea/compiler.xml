@@ -6,12 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="gershman-cop3330-ex14" />
-        <module name="gershman-cop3330-ex15" />
-        <module name="gershman-cop3330-ex12" />
-        <module name="gershman-cop3330-ex13" />
-        <module name="gershman-cop3330-ex16" />
-        <module name="gershman-cop3330-ex17" />
+        <module name="gershman-cop3330-ex20" />
       </profile>
     </annotationProcessing>
   </component>
